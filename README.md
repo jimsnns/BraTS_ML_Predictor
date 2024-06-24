@@ -21,8 +21,8 @@ To get started with the Brats ML Predictor Web Application, follow these steps:
 
 1. Clone the Repository:
 
-        git clone https://github.com/jimsnns/brats-ml-predictor.git
-        cd brats-ml-predictor
+        git clone https://github.com/jimsnns/brats_ml_predictor.git
+        cd your-github-folder\brats_ml_predictor
 
 2. Install Dependencies:
 
