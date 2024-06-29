@@ -24,13 +24,29 @@ To get started with the Brats ML Predictor Web Application, follow these steps:
         git clone https://github.com/jimsnns/brats_ml_predictor.git
         cd your-github-folder\brats_ml_predictor
 
-2. Install Dependencies:
+3. Install Dependencies:
 
         pip install -r requirements.txt
 
-3. Run the Application:
+4. Run the Application:
 
         python homepage.py
+
+# Installation and Setup on Docker
+
+To create and run a docker container and run the Brats ML Predictor Web Application, follow these steps:
+
+1. Clone the Repository:
+
+        git clone https://github.com/jimsnns/brats_ml_predictor.git
+        cd brats_ml_predictor
+
+2. Run the Application in Docker:
+
+        docker build -t brats_ml_predictor .
+        docker run -p 5000:5000 brats_ml_predictor
+   
+This setup will clone the repository, build the Docker image, and run the application in a Docker container, making it immediately ready for use.
 
   # Contributing
 
