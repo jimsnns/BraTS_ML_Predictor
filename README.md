@@ -1,4 +1,4 @@
-# Brats ML Predictor Web Application
+# Brats ML Predictor Web Application 🧠
 
 The Brats ML Predictor Web Application is a powerful and user-friendly tool designed for the medical imaging community. It leverages state-of-the-art machine learning models to predict and analyze brain tumors using MRI scans. This application is built on top of robust frameworks, ensuring accuracy, reliability, and ease of use for healthcare professionals, researchers, and data scientists.
 
