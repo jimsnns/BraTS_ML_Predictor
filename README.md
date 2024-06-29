@@ -15,7 +15,7 @@ The Brats ML Predictor Web Application is a powerful and user-friendly tool desi
 - Machine Learning: Incorporates cutting-edge deep learning architectures trained on the BraTS dataset, ensuring high accuracy in tumor detection and classification.
 - Data Storage: Utilizes efficient data storage solutions for managing MRI images and prediction results.
 
-# Installation and Setup
+# Clone and setup the environment locally
 
 To get started with the Brats ML Predictor Web Application, follow these steps:
 
