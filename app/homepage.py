@@ -269,7 +269,7 @@ def load_and_scale_uploaded_file(uploaded_file, scaler):
     img_data_scaled = scaler.fit_transform(img_data.reshape(-1, img_data.shape[-1])).reshape(img_data.shape)
     return img_data_scaled
 
-# Functions to create the footer using htbuilder libraries
+# Region of functions to create the footer using htbuilder libraries
 def image(src_as_string, **style):
     return img(src=src_as_string, style=styles(**style))
 
