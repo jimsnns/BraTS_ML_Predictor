@@ -12,7 +12,9 @@ import matplotlib.patches as mpatches
 from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler()
 from matplotlib import pyplot as plt
-from keras.metrics import MeanIoU, accuracy
+from htbuilder import HtmlElement, div, hr, p, styles,img,a
+from htbuilder.units import px, percent
+from htbuilder.funcs import rgba, rgb
 
 st.set_page_config(
     page_title='MRI BraTS Predictor',
@@ -21,11 +23,8 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-st.sidebar.image('brats_webapp_image.jfif')
-
-
-def main():
-    st.title("Welcome to MRI Brain Tumor Segmentation Application :brain:")
+def main(): 
+    st.header("Welcome to MRI Brain Tumor Segmentation Application :brain:",divider=True) 
 
     instructions = """
     ##### This web application is designed for accessing and analyzing BraTS multimodal imaging data.
@@ -85,7 +84,14 @@ def main():
     def on_change_slider():
         st.session_state.process_files = True
 
-    st.sidebar.title("Upload Files")
+    # Web application name
+    st.sidebar.title('BraTS ML Predictor')
+    
+    # Web application logo
+    st.sidebar.image('brats_webapp_image.jfif')
+    
+    # Upload form
+    st.sidebar.header("Upload Files")
   
     file_uploaders = { 
         "T2": st.sidebar.file_uploader("Upload T2 file :file_folder:", type=["t2.nii", ".nii"]),
@@ -263,5 +269,75 @@ def load_and_scale_uploaded_file(uploaded_file, scaler):
     img_data_scaled = scaler.fit_transform(img_data.reshape(-1, img_data.shape[-1])).reshape(img_data.shape)
     return img_data_scaled
 
+def image(src_as_string, **style):
+    return img(src=src_as_string, style=styles(**style))
+
+
+def link(link, text, **style):
+    return a(_href=link, _target="_blank", style=styles(**style))(text)
+
+
+def layout(*args):
+
+    style = """
+    <style>
+      # MainMenu {visibility: hidden;}
+      footer {visibility: hidden;}
+     .stApp { bottom: 105px; }
+    </style>
+    """
+
+    style_div = styles(
+        position="fixed",
+        left=0,
+        bottom=0,
+        margin=px(0, 0, 0, 0),
+        width=percent(100),
+        color="gray",
+        text_align="center",
+        height="auto",
+        opacity=1
+    )
+
+    style_hr = styles(
+        display="block",
+        margin=px(8, 8, "auto", "auto"),
+        border_style="inset",
+        border_width=px(2)
+    )
+
+    body = p()
+    foot = div(
+        style=style_div
+    )(
+        hr(
+            style=style_hr
+        ),
+        body
+    )
+
+    st.markdown(style, unsafe_allow_html=True)
+
+    for arg in args:
+        if isinstance(arg, str):
+            body(arg)
+
+        elif isinstance(arg, HtmlElement):
+            body(arg)
+
+    st.markdown(str(foot), unsafe_allow_html=True)
+    
+def footer():
+    myargs = [
+        "Made in ",
+        image('https://avatars3.githubusercontent.com/u/45109972?s=400&v=4',
+              width=px(25), height=px(25)),
+        " with ❤️ by ",
+        link("https://www.linkedin.com/in/dimitris-sinanis-5a58aa153/", "Dimitris Sinanis")
+    ]
+    layout(*myargs)
+
+
 if __name__ == '__main__':
     main()
+    footer()
