@@ -101,6 +101,7 @@ def main():
     }
     submit_button = st.button("Process Files")
 
+    # Process of validation of uploaded files
     if st.session_state.process_files or submit_button:
         required_labels = ["T2", "T1CE", "FLAIR", "SEG"]
         uploaded_files = {}
