@@ -2,6 +2,8 @@
 
 The Brats ML Predictor Web Application is a powerful and user-friendly tool designed for the medical imaging community. It leverages state-of-the-art machine learning models to predict and analyze brain tumors using MRI scans. This application is built on top of robust frameworks, ensuring accuracy, reliability, and ease of use for healthcare professionals, researchers, and data scientists. This application, developed as part of the **Master in Computer Science and Information Systems** program at the [**Hellenic Open University (HOU)**](https://www.eap.gr/en/postgraduate-specialization-in-information-systems/), for my Diploma Thesis with title **'Implementation of a medical image classification system using deep learning techniques'** and implements the model trained in my repository [MSc Machine Learning Project](https://github.com/jimsnns/MSc_ML_Project/tree/master).
 
+![image](https://github.com/user-attachments/assets/3b58bd32-4a62-4deb-b513-3c749b346676)
+
 # Key Features
 
 - Automated Tumor Detection: Utilizes advanced machine learning algorithms to detect and classify brain tumors from MRI scans with high precision.
