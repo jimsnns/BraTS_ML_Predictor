@@ -1,6 +1,7 @@
 import tensorflow as tf
-from keras.models import load_model
-from keras import backend as K
+from tensorflow import keras
+from tensorflow.keras.models import load_model
+from tensorflow.keras import backend as K
 import segmentation_models_3D as sm
 import nibabel as nib
 import numpy as np
@@ -151,7 +152,7 @@ def main():
             ## For testing reasons, uncomment if needed 
             # st.write(f"Unique values in segmentation data: {val, counts}")
 
-            temp_mask = tf.keras.utils.to_categorical(seg_data, num_classes=4)
+            temp_mask = keras.utils.to_categorical(seg_data, num_classes=4)
             # Save combined data and segmentation mask as .npy files
             combined_file = BytesIO()
             np.save(combined_file, combined_data)

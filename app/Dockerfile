@@ -1,11 +1,10 @@
 # app/Dockerfile
 
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY requirements.txt ./requirements.txt
-
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
@@ -13,21 +12,25 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Remove any existing files in the working directory
-RUN rm -rf /app/*
+# Copy requirements first for better caching
+COPY requirements.txt ./requirements.txt
 
-# Other Dockerfile instructions https://heroku:<your_heroku_api_key>@git.heroku.com/bratsmlpredictor.git .
+# Upgrade pip and install Python dependencies
+RUN pip3 install --no-cache-dir --upgrade pip && \
+    pip3 install --no-cache-dir -r requirements.txt
 
-#RUN git clone https://heroku:HRKU-fac92678-5638-4a09-b87b-2490756fe01f@git.heroku.com/bratsmlpredictor.git .
-
+# Copy application files
 COPY . .
 
-WORKDIR /app
+# Create non-root user for security
+RUN useradd -m -u 1000 appuser && \
+    chown -R appuser:appuser /app
 
-RUN pip3 install -r requirements.txt
+USER appuser
 
 EXPOSE 8501
 
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl --fail http://localhost:8501/_stcore/health || exit 1
 
 ENTRYPOINT ["streamlit", "run", "homepage.py", "--server.port=8501", "--server.address=0.0.0.0"]
