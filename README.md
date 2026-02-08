@@ -13,7 +13,8 @@ The Brats ML Predictor Web Application is a powerful and user-friendly tool desi
 
 # Technologies Used
 
-- Streamlit: An open-source Python library for building interactive web applications, particularly in the realm of data science and machine learning   
+- Streamlit: An open-source Python library for building interactive web applications, particularly in the realm of data science and machine learning
+- FastAPI: A high-performance Python web framework used to expose the ML inference as an API.
 - Machine Learning: Incorporates cutting-edge deep learning architectures trained on the BraTS dataset, ensuring high accuracy in tumor detection and classification.
 - Data Storage: Utilizes efficient data storage solutions for managing MRI images and prediction results.
 
@@ -26,13 +27,23 @@ To get started with the Brats ML Predictor Web Application, follow these steps:
         git clone https://github.com/jimsnns/brats_ml_predictor.git
         cd your-github-folder\brats_ml_predictor
 
-3. Install Dependencies:
+2. Install Dependencies:
 
+        cd app
         pip install -r requirements.txt
 
-4. Run the Application:
+3. Run the Application:
 
-        python homepage.py
+        uvicorn api:app --host 0.0.0.0 --port 8000
+
+4. Run a Prediction Request:
+
+        curl -X POST "http://localhost:8000/predict" \
+          -F "t2=@/path/to/t2.nii" \
+          -F "t1ce=@/path/to/t1ce.nii" \
+          -F "flair=@/path/to/flair.nii"
+
+    The response contains a Base64-encoded NumPy array (`prediction_npy_base64`) with the predicted segmentation mask.
 
 # Installation and Setup on Docker
 
@@ -45,12 +56,22 @@ To create and run a docker container and run the Brats ML Predictor Web Applicat
 
 2. Run the Application in Docker:
 
-        docker build -t brats_ml_predictor .
-        docker run -p 5000:5000 brats_ml_predictor
-   
-This setup will clone the repository, build the Docker image, and run the application in a Docker container, making it immediately ready for use.
+        docker build -t brats_ml_predictor app
+        docker run -p 8000:8000 brats_ml_predictor
 
-  # Contributing
+   After the container starts, call the `/predict` endpoint as shown above.
+
+# Model Optimization Ideas
+
+If you want to optimize the model further, consider the following:
+
+- Use mixed precision training and ensure the GPU supports Tensor Cores to reduce training time.
+- Add data augmentation (random flips, rotations, intensity shifts) to improve generalization.
+- Experiment with learning rate schedules (cosine decay, one-cycle policy) and class-weight tuning.
+- Use patch-based training and inference if GPU memory is a bottleneck.
+- Export the model with TensorRT or ONNX for faster inference in production.
+
+# Contributing
 
 We welcome contributions from the community! If you would like to contribute to this project, please follow these steps:
 

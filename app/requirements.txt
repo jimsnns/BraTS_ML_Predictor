@@ -1,9 +1,12 @@
+fastapi==0.115.11
 keras==3.12.0
 matplotlib==3.9.4
 nibabel==5.2.1
 numpy==1.26.4
+python-multipart==0.0.9
 scikit_learn==1.7.2
 segmentation_models_3D==1.0.5
 streamlit==1.51.0
 tensorflow==2.15.1
 protobuf==4.25.8
+uvicorn==0.34.0
